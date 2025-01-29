@@ -19,5 +19,13 @@ void main() {
       expect(Add('1,2,3,4,5'), 15);
     });
 
+    test('should handle new lines as delimiters', () {
+      expect(Add('1\n2,3'), 6);
+    });
+
+    test('should throw an exception for invalid input', () {
+      expect(() => Add('1,\n'), throwsA(isA<FormatException>()));
+    });
+
   });
 }
