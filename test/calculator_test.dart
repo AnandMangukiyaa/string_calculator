@@ -27,5 +27,28 @@ void main() {
       expect(() => Add('1,\n'), throwsA(isA<FormatException>()));
     });
 
+    test('should support different delimiters', () {
+      expect(Add('//;\n1;2'), 3);
+    });
+
+    test('should throw an exception for negative numbers', () {
+      expect(() => Add('-1,2,-3'), throwsA(isA<Exception>()));
+    });
+
+    test('should ignore numbers greater than 1000', () {
+      expect(Add('2,1001'), 2);
+    });
+
+    test('should support delimiters of any length', () {
+      expect(Add('//[***]\n1***2***3'), 6);
+    });
+
+    test('should support multiple delimiters', () {
+      expect(Add('//[*][%]\n1*2%3'), 6);
+    });
+
+    test('should support multiple delimiters of any length', () {
+      expect(Add('//[**][%%]\n1**2%%3'), 6);
+    });
   });
 }
